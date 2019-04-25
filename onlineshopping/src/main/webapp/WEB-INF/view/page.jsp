@@ -36,6 +36,9 @@
     <!-- Bootstrap Core CSS -->
     <link href="${css}/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Bootstrap Readable Theme -->
+    <link href="${css}/bootstrap-readable-theme.css" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link href="${css}/myapp.css" rel="stylesheet">
 
@@ -50,36 +53,44 @@
 
 <body>
 
-<!-- Navigation -->
-<%@include file="./shared/navbar.jsp" %>
+<div class="wrapper">
 
-<!-- Page Content -->
-<c:if test="${userClickHome == true}">
-    <%@include file="home.jsp" %>
-</c:if>
+    <!-- Navigation -->
+    <%@include file="./shared/navbar.jsp" %>
 
-<!-- Load only when user clicks "about" -->
-<c:if test="${userClickAbout == true}">
-    <%@include file="about.jsp" %>
-</c:if>
+    <div class="content">
 
-<!-- Load only when user clicks "contact" -->
-<c:if test="${userClickContact == true}">
-    <%@include file="contact.jsp" %>
-</c:if>
+        <!-- Page Content -->
+        <c:if test="${userClickHome == true}">
+            <%@include file="home.jsp" %>
+        </c:if>
+
+        <!-- Load only when user clicks "about" -->
+        <c:if test="${userClickAbout == true}">
+            <%@include file="about.jsp" %>
+        </c:if>
+
+        <!-- Load only when user clicks "contact" -->
+        <c:if test="${userClickContact == true}">
+            <%@include file="contact.jsp" %>
+        </c:if>
+
+    </div>
 
 
-<!-- Footer -->
-<%@include file="./shared/footer.jsp" %>
+    <!-- Footer -->
+    <%@include file="./shared/footer.jsp" %>
 
-<!-- jQuery -->
-<script src="${js}/jquery.js"></script>
+    <!-- jQuery -->
+    <script src="${js}/jquery.js"></script>
 
-<!-- Bootstrap Core JavaScript -->
-<script src="${js}/bootstrap.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="${js}/bootstrap.min.js"></script>
 
-<!-- Self coded JavaScript -->
-<script src="${js}/myapp.js"></script>
+    <!-- Self coded JavaScript -->
+    <script src="${js}/myapp.js"></script>
+
+</div>
 
 </body>
 
