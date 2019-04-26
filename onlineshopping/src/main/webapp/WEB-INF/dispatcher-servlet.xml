@@ -21,6 +21,8 @@
 
     </bean>
 
+
+
     <!-- Loading static resources -->
     <mvc:annotation-driven />
 
