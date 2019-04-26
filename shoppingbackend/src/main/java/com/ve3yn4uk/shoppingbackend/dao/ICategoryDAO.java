@@ -12,4 +12,5 @@ public interface ICategoryDAO {
 
     List<Category> findAll();
 
+    Category findById(int id);
 }

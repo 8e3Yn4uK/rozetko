@@ -29,7 +29,7 @@ public class CategoryDAO implements ICategoryDAO {
             category2.setImageURL("CAT_2.png");
             categories.add(category2);
             Category category3 = new Category();
-            category3.setId(2);
+            category3.setId(3);
             category3.setName("Laptop");
             category3.setDescription("Some description for Laptop");
             category3.setImageURL("CAT_3.png");
@@ -39,5 +39,14 @@ public class CategoryDAO implements ICategoryDAO {
     @Override
     public List<Category> findAll() {
         return categories;
+    }
+
+    @Override
+    public Category findById(int id) {
+
+            for (Category tempCategory: categories){
+                if (tempCategory.getId() == id) return tempCategory;
+            }
+            return null;
     }
 }
