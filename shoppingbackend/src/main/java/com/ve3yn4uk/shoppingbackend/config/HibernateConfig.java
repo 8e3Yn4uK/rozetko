@@ -21,9 +21,9 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class HibernateConfig {
 
-    private final static String DATABASE_URL = "jdbc:h2:./rozetko";
-    private final static String DATABASE_DRIVER = "org.h2.Driver";
-    private final static String DATABASE_DIALECT = "org.hibernate.dialect.H2Dialect";
+    private final static String DATABASE_URL = "jdbc:mysql://localhost:3306/rozetko?useSSL=false&serverTimezone=UTC";
+    private final static String DATABASE_DRIVER = "com.mysql.cj.jdbc.Driver";
+    private final static String DATABASE_DIALECT = "org.hibernate.dialect.MySQLDialect";
     private final static String DATABASE_USERNAME = "root";
     private final static String DATABASE_PASSWORD = "root";
 
@@ -54,7 +54,7 @@ public class HibernateConfig {
         return builder.buildSessionFactory();
     }
 
-    private Properties getHibernateProperties() {
+    public Properties getHibernateProperties() {
 
         Properties properties = new Properties();
 

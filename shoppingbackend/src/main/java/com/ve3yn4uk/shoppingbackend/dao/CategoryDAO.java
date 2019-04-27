@@ -58,7 +58,7 @@ public class CategoryDAO implements ICategoryDAO {
 
     @Override
     @Transactional
-    public boolean saveCategory(Category category) {
+    public boolean addCategory(Category category) {
 
         try {
             sessionFactory.getCurrentSession().persist(category);

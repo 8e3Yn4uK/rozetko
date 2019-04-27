@@ -14,5 +14,5 @@ public interface ICategoryDAO {
 
     Category findById(int id);
 
-    boolean saveCategory(Category category);
+    boolean addCategory(Category category);
 }
