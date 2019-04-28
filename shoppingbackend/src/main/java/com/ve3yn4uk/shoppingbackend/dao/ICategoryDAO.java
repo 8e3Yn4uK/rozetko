@@ -1,6 +1,6 @@
 package com.ve3yn4uk.shoppingbackend.dao;
 
-import com.ve3yn4uk.shoppingbackend.dto.Category;
+import com.ve3yn4uk.shoppingbackend.entity.Category;
 
 import java.util.List;
 
@@ -10,9 +10,38 @@ import java.util.List;
 
 public interface ICategoryDAO {
 
-    List<Category> findAll();
+    /**
+     * Getting list of active categories
+     */
+    List<Category> findActive();
 
+    /**
+     * Getting single category by id
+     */
     Category findById(int id);
 
-    boolean addCategory(Category category);
+    /**
+     * Adding new category
+     */
+    boolean add(Category category);
+
+    /**
+     * Updating existing category
+     */
+    boolean update(Category category);
+
+    /**
+     * Deactivating existing category
+     */
+    boolean deactivate(Category category);
+
+    /**
+     * Deleting existing category (for testing)
+     */
+    void delete(Category category);
+
+    /**
+     * Getting list of all existing categories (for testing)
+     */
+    List<Category> findAll();
 }

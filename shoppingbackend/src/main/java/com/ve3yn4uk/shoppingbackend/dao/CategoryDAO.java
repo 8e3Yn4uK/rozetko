@@ -1,64 +1,44 @@
 package com.ve3yn4uk.shoppingbackend.dao;
 
-import com.ve3yn4uk.shoppingbackend.dto.Category;
+import com.ve3yn4uk.shoppingbackend.entity.Category;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by 8e3Yn4uK on 26.04.2019
  */
 
-@Repository
+@Repository("categoryDAO")
+@Transactional
 public class CategoryDAO implements ICategoryDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
 
-    private static List<Category> categories = new ArrayList<>();
 
-    static {
-        Category category = new Category();
-        category.setId(1);
-        category.setName("Television");
-        category.setDescription("Some description for TV");
-        category.setImageURL("CAT_1.png");
-        categories.add(category);
-        Category category2 = new Category();
-        category2.setId(2);
-        category2.setName("Mobile");
-        category2.setDescription("Some description for Mobile");
-        category2.setImageURL("CAT_2.png");
-        categories.add(category2);
-        Category category3 = new Category();
-        category3.setId(3);
-        category3.setName("Laptop");
-        category3.setDescription("Some description for Laptop");
-        category3.setImageURL("CAT_3.png");
-        categories.add(category3);
+    @Override
+    public List<Category> findActive() {
+
+        String selectActiveCategories = "FROM Category WHERE active = :active";
+        Query query = sessionFactory.getCurrentSession().createQuery(selectActiveCategories);
+        query.setParameter("active", true);
+
+        return query.getResultList();
     }
 
     @Override
-    public List<Category> findAll() {
-        return categories;
+    public Category findById(int id) {   ///
+
+        return sessionFactory.getCurrentSession().get(Category.class, Integer.valueOf(id));
     }
 
     @Override
-    public Category findById(int id) {
-
-        for (Category tempCategory : categories) {
-            if (tempCategory.getId() == id) return tempCategory;
-        }
-        return null;
-    }
-
-    @Override
-    @Transactional
-    public boolean addCategory(Category category) {
+    public boolean add(Category category) {    ///
 
         try {
             sessionFactory.getCurrentSession().persist(category);
@@ -68,5 +48,48 @@ public class CategoryDAO implements ICategoryDAO {
             exc.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public boolean update(Category category) {    ///
+
+        try {
+            sessionFactory.getCurrentSession().update(category);
+            return true;
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deactivate(Category category) {  ///
+
+        category.setActive(false);
+
+        try {
+            sessionFactory.getCurrentSession().update(category);
+            return true;
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public void delete(Category category) {
+
+        sessionFactory.getCurrentSession().delete(category);
+    }
+
+    @Override
+    public List<Category> findAll() {
+
+        String selectActiveCategories = "FROM Category";
+        Query query = sessionFactory.getCurrentSession().createQuery(selectActiveCategories);
+
+        return query.getResultList();
     }
 }

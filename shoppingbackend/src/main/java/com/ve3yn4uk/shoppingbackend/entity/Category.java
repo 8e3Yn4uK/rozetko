@@ -1,4 +1,4 @@
-package com.ve3yn4uk.shoppingbackend.dto;
+package com.ve3yn4uk.shoppingbackend.entity;
 
 import javax.persistence.*;
 

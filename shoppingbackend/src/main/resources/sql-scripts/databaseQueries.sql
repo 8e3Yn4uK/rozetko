@@ -11,3 +11,4 @@ CREATE TABLE `category` (
                           `is_active` varchar(100) DEFAULT NULL,
                           PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+

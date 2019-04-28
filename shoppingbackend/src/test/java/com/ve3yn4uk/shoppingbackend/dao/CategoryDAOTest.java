@@ -1,6 +1,6 @@
 package com.ve3yn4uk.shoppingbackend.dao;
 
-import com.ve3yn4uk.shoppingbackend.dto.Category;
+import com.ve3yn4uk.shoppingbackend.entity.Category;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -30,11 +30,79 @@ public class CategoryDAOTest {
     public void addCategory() {
 
         category = new Category();
-
         category.setName("Television");
         category.setDescription("Some description for TV");
         category.setImageURL("CAT_1.png");
 
-        assertEquals("Category added successful)", true, categoryDAO.addCategory(category));
+        assertEquals("Category added successful)", true, categoryDAO.add(category));
+
+        categoryDAO.delete(category);
     }
+
+    @Test
+    public void getCategory(){
+
+        Category tempCategory = new Category();
+        tempCategory.setName("Television");
+        tempCategory.setDescription("Some description for TV");
+        tempCategory.setImageURL("CAT_1.png");
+        categoryDAO.add(tempCategory);
+        int myId = tempCategory.getId();
+        category = categoryDAO.findById(myId);
+
+        assertEquals("Category fetched successfully", myId, category.getId());
+
+        categoryDAO.delete(tempCategory);
+    }
+
+    @Test
+    public void updateCategory(){
+
+        category = new Category();
+        category.setName("TestCatrgory");
+        category.setDescription("TestDescription");
+        category.setImageURL("TEST_1.png");
+        categoryDAO.add(category);
+        int myId = category.getId();
+        category = categoryDAO.findById(myId);
+        category.setName("Tv");
+
+        assertEquals("Category updated successfully", true, categoryDAO.update(category));
+
+        categoryDAO.delete(category);
+    }
+
+    @Test
+    public void deactivateCategory(){
+
+        category = new Category();
+        category.setName("TestCatrgory");
+        category.setDescription("TestDescription");
+        category.setImageURL("TEST_1.png");
+        categoryDAO.add(category);
+        int myId = category.getId();
+        category = categoryDAO.findById(myId);
+
+        assertEquals("Category deleted successfully", true, categoryDAO.deactivate(category));
+
+        categoryDAO.delete(category);
+    }
+
+    @Test
+    public void findActiveCategories(){
+
+        int count = categoryDAO.findActive().size();
+        category = new Category();
+        category.setName("TestCatrgory");
+        category.setDescription("TestDescription");
+        category.setImageURL("TEST_1.png");
+        categoryDAO.add(category);
+        assertEquals("Categories fetched successfully", count+1, categoryDAO.findActive().size());
+
+        categoryDAO.delete(category);
+    }
+
+
+
+
 }

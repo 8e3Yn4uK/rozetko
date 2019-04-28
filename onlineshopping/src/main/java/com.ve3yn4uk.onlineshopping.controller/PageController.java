@@ -1,7 +1,7 @@
 package com.ve3yn4uk.onlineshopping.controller;
 
 import com.ve3yn4uk.shoppingbackend.dao.ICategoryDAO;
-import com.ve3yn4uk.shoppingbackend.dto.Category;
+import com.ve3yn4uk.shoppingbackend.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +22,7 @@ public class PageController {
     public ModelAndView index() {
         ModelAndView mv = new ModelAndView("page");
         mv.addObject("title", "Home");
-        mv.addObject("categories", categoryDAO.findAll());
+        mv.addObject("categories", categoryDAO.findActive());
         mv.addObject("userClickHome", true);
         return mv;
     }
@@ -50,7 +50,7 @@ public class PageController {
     public ModelAndView showAllProducts() {
         ModelAndView mv = new ModelAndView("page");
         mv.addObject("title", "All Products");
-        mv.addObject("categories", categoryDAO.findAll());
+        mv.addObject("categories", categoryDAO.findActive());
         mv.addObject("userClickAllProducts", true);
         return mv;
     }
@@ -60,7 +60,7 @@ public class PageController {
         Category category = null;
         category = categoryDAO.findById(id);
         mv.addObject("title", category.getName());
-        mv.addObject("categories", categoryDAO.findAll());
+        mv.addObject("categories", categoryDAO.findActive());
         mv.addObject("category", category);
         mv.addObject("userClickCategoryProducts", true);
         return mv;
