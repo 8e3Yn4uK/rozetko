@@ -27,18 +27,19 @@ public class CategoryDAO implements ICategoryDAO {
         String selectActiveCategories = "FROM Category WHERE active = :active";
         Query query = sessionFactory.getCurrentSession().createQuery(selectActiveCategories);
         query.setParameter("active", true);
+        List<Category> categories = query.getResultList();
 
-        return query.getResultList();
+        return categories;
     }
 
     @Override
-    public Category findById(int id) {   ///
+    public Category findById(int id) {
 
         return sessionFactory.getCurrentSession().get(Category.class, Integer.valueOf(id));
     }
 
     @Override
-    public boolean add(Category category) {    ///
+    public boolean add(Category category) {
 
         try {
             sessionFactory.getCurrentSession().persist(category);
@@ -51,7 +52,7 @@ public class CategoryDAO implements ICategoryDAO {
     }
 
     @Override
-    public boolean update(Category category) {    ///
+    public boolean update(Category category) {
 
         try {
             sessionFactory.getCurrentSession().update(category);
@@ -64,7 +65,7 @@ public class CategoryDAO implements ICategoryDAO {
     }
 
     @Override
-    public boolean deactivate(Category category) {  ///
+    public boolean deactivate(Category category) {
 
         category.setActive(false);
 

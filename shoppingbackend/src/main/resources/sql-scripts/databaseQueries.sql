@@ -12,3 +12,8 @@ CREATE TABLE `category` (
                           PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
+
+INSERT INTO `category` VALUES
+(1,'Television','Some description for TV','Image_1.png', 'true'),
+(2,'Laptop','Some description for Laptop','Image_2.png', 'true'),
+(3,'Mobile','Some description for Mobile','Image_3.png', 'true');

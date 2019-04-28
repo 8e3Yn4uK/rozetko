@@ -23,7 +23,6 @@ import java.util.logging.Logger;
 @Configuration
 @ComponentScan(basePackages = {"com.ve3yn4uk.shoppingbackend.entity"})
 @EnableTransactionManagement
-@PropertySource({"classpath:persistence-mysql.properties", "classpath:security-persistence-mysql.properties"})
 public class HibernateConfig {
 
     private Logger logger = Logger.getLogger(getClass().getName());
@@ -31,6 +30,10 @@ public class HibernateConfig {
     @Autowired
     private Environment env;
 
+    final static String jdbc_driver = "com.mysql.cj.jdbc.Driver";
+    final static String jdbc_url = "jdbc:mysql://localhost:3306/rozetko?useSSL=false&serverTimezone=UTC";
+    final static String jdbc_user = "root";
+    final static String jdbc_pwd = "root";
 
     // DataSource bean
     @Bean
@@ -39,14 +42,14 @@ public class HibernateConfig {
         BasicDataSource dataSource = new BasicDataSource();
 
         // database connection information
-        dataSource.setDriverClassName(env.getProperty("jdbc.driver"));
+        dataSource.setDriverClassName(jdbc_driver);
 
-        logger.info(">>> jdbc url: " + env.getProperty("jdbc.url"));
-        logger.info(">>> jdbc user: " + env.getProperty("jdbc.user"));
+        logger.info(">>> jdbc url: " + jdbc_url);
+        logger.info(">>> jdbc user: " + jdbc_user);
 
-        dataSource.setUrl(env.getProperty("jdbc.url"));
-        dataSource.setUsername(env.getProperty("jdbc.user"));
-        dataSource.setPassword(env.getProperty("jdbc.password"));
+        dataSource.setUrl(jdbc_url);
+        dataSource.setUsername(jdbc_user);
+        dataSource.setPassword(jdbc_pwd);
 
         return dataSource;
     }
@@ -58,7 +61,7 @@ public class HibernateConfig {
         LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder(dataSource);
 
         builder.addProperties(getHibernateProperties());
-        builder.scanPackages(env.getProperty("hibernate.packagesToScan"));
+        builder.scanPackages("com.ve3yn4uk.shoppingbackend.entity");
 
         return builder.buildSessionFactory();
     }
@@ -67,9 +70,9 @@ public class HibernateConfig {
 
         Properties properties = new Properties();
 
-        properties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
-        properties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-        properties.put("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
+        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        properties.put("hibernate.show_sql", true);
+        properties.put("hibernate.format_sql", true);
 
         return properties;
     }
