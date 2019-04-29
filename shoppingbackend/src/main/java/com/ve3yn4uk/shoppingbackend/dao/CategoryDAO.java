@@ -1,6 +1,7 @@
 package com.ve3yn4uk.shoppingbackend.dao;
 
 import com.ve3yn4uk.shoppingbackend.entity.Category;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,13 @@ public class CategoryDAO implements ICategoryDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
+    String selectAllCategories = "FROM Category";
+    String selectAllActiveCategories = "FROM Category WHERE active = :active";
 
     @Override
     public List<Category> findActive() {
 
-        String selectActiveCategories = "FROM Category WHERE active = :active";
-        Query query = sessionFactory.getCurrentSession().createQuery(selectActiveCategories);
+        Query query = sessionFactory.getCurrentSession().createQuery(selectAllActiveCategories, Category.class);
         query.setParameter("active", true);
         List<Category> categories = query.getResultList();
 
@@ -35,61 +37,68 @@ public class CategoryDAO implements ICategoryDAO {
     @Override
     public Category findById(int id) {
 
-        return sessionFactory.getCurrentSession().get(Category.class, Integer.valueOf(id));
+        try {
+            return sessionFactory.getCurrentSession().get(Category.class, Integer.valueOf(id));
+        } catch (HibernateException exc) {
+            exc.printStackTrace();
+        }
+        return null;
     }
 
     @Override
-    public boolean add(Category category) {
+    public boolean add(Category theCategory) {
 
         try {
-            sessionFactory.getCurrentSession().persist(category);
+            sessionFactory.getCurrentSession().persist(theCategory);
             return true;
-        }
-        catch (Exception exc) {
+        } catch (Exception exc) {
             exc.printStackTrace();
             return false;
         }
     }
 
     @Override
-    public boolean update(Category category) {
+    public boolean update(Category theCategory) {
 
         try {
-            sessionFactory.getCurrentSession().update(category);
+            sessionFactory.getCurrentSession().update(theCategory);
             return true;
-        }
-        catch (Exception exc) {
+        } catch (Exception exc) {
             exc.printStackTrace();
             return false;
         }
     }
 
     @Override
-    public boolean deactivate(Category category) {
+    public boolean deactivate(Category theCategory) {
 
-        category.setActive(false);
+        theCategory.setActive(false);
 
         try {
-            sessionFactory.getCurrentSession().update(category);
+            sessionFactory.getCurrentSession().update(theCategory);
             return true;
-        }
-        catch (Exception exc) {
+        } catch (Exception exc) {
             exc.printStackTrace();
             return false;
         }
     }
 
     @Override
-    public void delete(Category category) {
+    public boolean delete(Category theCategory) {
 
-        sessionFactory.getCurrentSession().delete(category);
+        try {
+            sessionFactory.getCurrentSession().delete(theCategory);
+            return true;
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
     public List<Category> findAll() {
 
-        String selectActiveCategories = "FROM Category";
-        Query query = sessionFactory.getCurrentSession().createQuery(selectActiveCategories);
+        Query query = sessionFactory.getCurrentSession().createQuery(selectAllCategories, Category.class);
 
         return query.getResultList();
     }

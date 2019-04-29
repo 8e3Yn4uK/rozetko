@@ -23,22 +23,22 @@ public interface ICategoryDAO {
     /**
      * Adding new category
      */
-    boolean add(Category category);
+    boolean add(Category theCategory);
 
     /**
      * Updating existing category
      */
-    boolean update(Category category);
+    boolean update(Category theCategory);
 
     /**
      * Deactivating existing category
      */
-    boolean deactivate(Category category);
+    boolean deactivate(Category theCategory);
 
     /**
      * Deleting existing category (for testing)
      */
-    void delete(Category category);
+    boolean delete(Category theCategory);
 
     /**
      * Getting list of all existing categories (for testing)
