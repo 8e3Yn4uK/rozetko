@@ -1,5 +1,6 @@
 package com.ve3yn4uk.shoppingbackend.entity;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
