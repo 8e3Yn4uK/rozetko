@@ -16,7 +16,7 @@ public class Product {
     private String code;
     private String name;
     private String brand;
-    private String descroption;
+    private String description;
     @Column(name = "unit_price")
     private double unitPrice;
     private int quantity;
@@ -70,12 +70,12 @@ public class Product {
         this.brand = brand;
     }
 
-    public String getDescroption() {
-        return descroption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescroption(String descroption) {
-        this.descroption = descroption;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public double getUnitPrice() {
@@ -140,7 +140,7 @@ public class Product {
                 "code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 ", brand='" + brand + '\'' +
-                ", descroption='" + descroption + '\'' +
+                ", description='" + description + '\'' +
                 ", unitPrice=" + unitPrice +
                 ", quantity=" + quantity +
                 ", active=" + active +

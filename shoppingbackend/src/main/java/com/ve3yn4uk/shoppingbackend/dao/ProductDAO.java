@@ -72,10 +72,11 @@ public class ProductDAO implements IProductDAO {
     @Override
     public boolean deactivate(Product theProduct) {
 
+        theProduct.setActive(false);
+
         try {
-            theProduct.setActive(false);
-            // calling update method
-            this.update(theProduct);
+            sessionFactory.getCurrentSession().update(theProduct);
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }

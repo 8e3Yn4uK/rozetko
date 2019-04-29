@@ -34,7 +34,7 @@ public class CategoryDAOTest {
         category.setDescription("Some description for TV");
         category.setImageURL("CAT_1.png");
 
-        assertEquals("Category added successful)", true, categoryDAO.add(category));
+        assertEquals("Category adding error", true, categoryDAO.add(category));
 
         categoryDAO.delete(category);
     }
@@ -50,7 +50,7 @@ public class CategoryDAOTest {
         int myId = tempCategory.getId();
         category = categoryDAO.findById(myId);
 
-        assertEquals("Category fetched successfully", myId, category.getId());
+        assertEquals("Category fetching error", myId, category.getId());
 
         categoryDAO.delete(tempCategory);
     }
@@ -67,7 +67,7 @@ public class CategoryDAOTest {
         category = categoryDAO.findById(myId);
         category.setName("Tv");
 
-        assertEquals("Category updated successfully", true, categoryDAO.update(category));
+        assertEquals("Category updating error", true, categoryDAO.update(category));
 
         categoryDAO.delete(category);
     }
@@ -83,7 +83,7 @@ public class CategoryDAOTest {
         int myId = category.getId();
         category = categoryDAO.findById(myId);
 
-        assertEquals("Category deleted successfully", true, categoryDAO.deactivate(category));
+        assertEquals("Category deleting error", true, categoryDAO.deactivate(category));
 
         categoryDAO.delete(category);
     }
@@ -97,7 +97,7 @@ public class CategoryDAOTest {
         category.setDescription("TestDescription");
         category.setImageURL("TEST_1.png");
         categoryDAO.add(category);
-        assertEquals("Categories fetched successfully", count+1, categoryDAO.findActive().size());
+        assertEquals("Categories fetching error", count+1, categoryDAO.findActive().size());
 
         categoryDAO.delete(category);
     }
